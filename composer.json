@@ -1,0 +1,16 @@
+{
+    "name": "italodeveloper/zoop",
+    "description": "Pacote de integração Basico PHP + Zoop",
+    "authors": [
+        {
+            "name": "Ítalo Araújo",
+            "email": "italoaraujo788@gmai.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Zoop\\": "src/"
+        }
+    }
+}
