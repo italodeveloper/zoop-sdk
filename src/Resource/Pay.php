@@ -123,7 +123,7 @@ class Pay
                 'usage' => 'single_use',
                 'amount' => ($card['amount'] * 100),
                 'currency' => 'BRL',
-                'type' => 'card',
+                'type' => 'debit_online',
                 'card' => array(
                     'card_number' => $card['card']['card_number'],
                     'holder_name' => $card['card']['holder_name'],

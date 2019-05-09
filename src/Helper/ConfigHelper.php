@@ -1,5 +1,7 @@
 <?php
 namespace Zoop;
+use GuzzleHttp\Client;
+use Zoop\AuthHelper;
 
 class ConfigHelper 
 {
@@ -25,7 +27,14 @@ class ConfigHelper
                 'reference_id'=> null,
                 'status' => null,
                 'payment_type' => null,
-            )
+            ),
+            'guzzle' => new Client([
+                'base_uri' => 'https://api.zoop.ws',
+                'timeout' => 2.0,
+                'headers' => [
+                    'Authorization' => 'Basic ' . AuthHelper::getBasic(['auth' => ['token' => $token]])
+                ]
+            ])
         );
     }   
 }
