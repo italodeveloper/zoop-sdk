@@ -15,7 +15,7 @@
         }
     ],
     "config": {
-        "optimize-autoloader": true
+        "optimize-autoloader": false
     },
     "require": {
         "php": ">=5.3.23",

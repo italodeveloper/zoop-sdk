@@ -17,12 +17,16 @@ namespace Zoop;
  * @method Zoop\MarketPlace\Transactions getAllTransactions()
  * @method Zoop\MarketPlace\Transactions getTransaction(string $transaction)
  * 
+ * @method Zoop\MarketPlace\Sellers getAllSellers()
+ * @method Zoop\MarketPlace\Sellers getSeller(string $sallerId)
+ * 
  * @method Zoop\Payment\CreditCard payCreditCard(array $card)
  * @method Zoop\Payment\Ticket generateTicket(array $ticket, string $userId)
  * 
  * @method Zoop\WebHook\WebHook getAllWebHooks()
  * @method Zoop\WebHook\WebHook createWebHook(string $url, string $description)
  * @method Zoop\WebHook\WebHook deleteWebHook(string $webhookId)
+ * 
  * 
  * @author italodeveloper <italoaraujo788@gmail.com>
  * @package ZoopClient

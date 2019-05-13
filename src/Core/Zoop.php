@@ -39,12 +39,28 @@ abstract class Zoop
     private function getBundles()
     {
         return [
-            WebHook\WebHook::class,
             Marketplace\Transactions::class,
+            MarketPlace\Sellers::class,
+            WebHook\WebHook::class,
             MarketPlace\Buyers::class,
             Payment\CreditCard::class,
             Payment\Ticket::class
         ];
+    }
+
+    /**
+     * checkBundlesRepeat function
+     *
+     * Lista todos os bundles registados para observar se não existem funções
+     * que se sobrescrevem
+     * 
+     * @return array
+     */
+    public function checkBundlesRepeat()
+    {
+        $bundles = $this->getAllBundle();
+        unset($bundles['binary']);
+        return $bundles;
     }
 
     /**
@@ -59,12 +75,11 @@ abstract class Zoop
      */
     private function getBundle(array $bundles, $function)
     {
-        unset($bundles['allMethods']);
-        for ($contador = 0; $contador < count($bundles); $contador++) { 
-            $name = array_keys($bundles[$contador])[0];
-            $targetFunction = $bundles[$contador][$name][0];
-            if(\in_array($function, $targetFunction)){
-                return $name;
+        unset($bundles['binary']);
+
+        foreach ($bundles as $bundleKey => $bundleMethods) {
+            if(\in_array($function, $bundleMethods)){
+                return $bundleKey;
             }
         }
         return false;
@@ -81,15 +96,32 @@ abstract class Zoop
      */
     private function getAllBundle()
     {
-        $bundleCollection = ['allMethods' => []];
-        foreach($this->getBundles() as $bundle)
-        {
-            foreach (\get_class_methods($bundle) as $method) {
-                array_push($bundleCollection['allMethods'], $method);
+        $bundlesArray = array('binary' => array());
+        $bundles = $this->getBundles();
+        foreach ($bundles as $bundle) {
+            if(!isset($bundlesArray[$bundle])){
+               $bundlesArray[$bundle] = array();
             }
-            $bundleCollection[] = [$bundle => [\get_class_methods($bundle)]];
         }
-        return $bundleCollection;
+        foreach ($bundlesArray as $bundleKey => $bundle) {
+            $bundleMethods = \get_class_methods($bundleKey);
+            if(is_array($bundleMethods) && !empty($bundleMethods)){
+                foreach ($bundleMethods as $method) {
+                    if($method != '__construct' 
+                    && $method != '__call' 
+                    && $method != 'hookBundle' 
+                    && $method != 'getAllBundle'
+                    && $method != 'getBundle'
+                    && $method != 'getBundles'
+                    && $method != 'ResponseException'
+                    ){
+                        $bundlesArray[$bundleKey][] = $method;
+                        $bundlesArray['binary'][] = $method;
+                    }
+                }
+            }
+        }
+        return $bundlesArray;
     }
 
     /**
@@ -125,7 +157,7 @@ abstract class Zoop
     public function __call($name, $arguments)
     {
         $bundles = $this->getAllBundle();
-        if(!in_array($name, $bundles['allMethods'])){
+        if(!in_array($name, $bundles['binary'])){
             return false;
         }
         $bundle = $this->getBundle($bundles, $name);
