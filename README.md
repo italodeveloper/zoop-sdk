@@ -18,9 +18,9 @@ use Zoop\ZoopClient;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$token = 'zpk_test_xjT8sQwPhZ8ivZfbuN5uiLcP'; /** Token gerado ADM Mkt Zoop */
-$marketplace = 'd0024d3f01ea49f09814d282d38e3b3f'; /* ID do Marketplace **/
-$vendedor = '38e0c71e9c7c465080b7c049ae85bcb3'; /** ID do vendedor do marketplace */
+$token = 'zpk_test_Xxxxxx'; /** Token gerado ADM Mkt Zoop */
+$marketplace = 'd0024d3f01ea4xxxxxxxxxx'; /* ID do Marketplace **/
+$vendedor = '38e0c71e9c7c465080bxxxxxxxxx'; /** ID do vendedor do marketplace */
 
 $client = new ZoopClient(
     Config::configure($token, $marketplace, $vendedor)
