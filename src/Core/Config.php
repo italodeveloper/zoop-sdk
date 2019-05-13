@@ -1,6 +1,7 @@
 <?php
 namespace Zoop\Core;
 use GuzzleHttp\Client;
+use Zoop\Core\ZendAdapter;
 
 /**
  * Config class
@@ -18,9 +19,9 @@ use GuzzleHttp\Client;
  */
 class Config
 {
-    public static function configure(string $token, string $marketplace, string $vendedor)
+    public static function configure(string $token, string $marketplace, string $vendedor, $is_zend = null)
     {
-        return [
+        $configurations = [
             'marketplace' => $marketplace,
             'gatway' => 'zoop',
             'base_url' => 'https://api.zoop.ws',
@@ -41,13 +42,26 @@ class Config
                 'status' => null,
                 'payment_type' => null,
             ],
-            'guzzle' => new Client([
+            'guzzle' => [
                 'base_uri' => 'https://api.zoop.ws',
                 'timeout' => 10,
                 'headers' => [
                     'Authorization' => 'Basic ' . \base64_encode($token . ':')
                 ]
-            ])
+            ]
         ];
+        return self::ClientHelper($configurations, $is_zend);
+    }
+
+    private static function ClientHelper(array $configurations, $is_zend = null)
+    {
+        $client = $configurations['guzzle'];
+        unset($configurations['guzzle']);
+        if(\is_null($is_zend)){
+            $configurations['guzzle'] = new Client($client);
+        } else {
+            $configurations['guzzle'] =new ZendAdapter($client);
+        }
+        return $configurations;
     }
 }
