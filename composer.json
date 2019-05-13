@@ -1,14 +1,16 @@
 {
-    "name": "italodeveloper/zoop",
-    "description": "Pacote de integração Basico PHP + Zoop",
+    "name": "code/php",
     "authors": [
         {
             "name": "Ítalo Araújo",
-            "email": "italoaraujo788@gmai.com"
+            "email": "italoaraujo@gmail.com"
         }
     ],
+    "config": {
+        "optimize-autoloader": true
+    },
     "require": {
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
         "psr-4": {

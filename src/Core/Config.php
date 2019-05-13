@@ -1,21 +1,34 @@
 <?php
-namespace Zoop;
+namespace Zoop\Core;
 use GuzzleHttp\Client;
-use Zoop\AuthHelper;
 
-class ConfigHelper 
+/**
+ * Config class
+ * 
+ * A classe de configuração do fluxo da aplicação
+ * é extremamente flexivel e pode ser alterada para diversas
+ * formas simples de usabilidade, podendo substituir por exemplo
+ * o guzzle e suas configuração de timeout pelo Zend Http.
+ * 
+ * @method Zoop/Core/Config::configure(string $token, string $marketplace, string $vendedor)
+ * 
+ * @package Zoop/Core
+ * @author italodeveloper <italoaraujo788@gmail.com>
+ * @version 1.0.0
+ */
+class Config
 {
-    public static function createConfig(string $token, string $marketplace, string $vendedor)
+    public static function configure(string $token, string $marketplace, string $vendedor)
     {
-        return array(
+        return [
             'marketplace' => $marketplace,
             'gatway' => 'zoop',
             'base_url' => 'https://api.zoop.ws',
-            'auth' => array(
+            'auth' => [
                 'on_behalf_of' => $vendedor,
                 'token' => $token
-            ),
-            'configurations' => array(
+            ],
+            'configurations' => [
                 'limit' => 20,
                 'sort' => 'time-descending',
                 'offset' => 0,
@@ -27,14 +40,14 @@ class ConfigHelper
                 'reference_id'=> null,
                 'status' => null,
                 'payment_type' => null,
-            ),
+            ],
             'guzzle' => new Client([
                 'base_uri' => 'https://api.zoop.ws',
-                'timeout' => 2.0,
+                'timeout' => 10,
                 'headers' => [
-                    'Authorization' => 'Basic ' . AuthHelper::getBasic(['auth' => ['token' => $token]])
+                    'Authorization' => 'Basic ' . \base64_encode($token . ':')
                 ]
             ])
-        );
-    }   
+        ];
+    }
 }

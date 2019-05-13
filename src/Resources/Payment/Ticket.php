@@ -1,17 +1,25 @@
 <?php
 namespace Zoop\Payment;
+use Zoop\Zoop;
 
-use Zoop\Marketplace\Transactions;
-
-class Ticket 
+/**
+ * Ticket class
+ * 
+ * Essa classe é responsavel por gerar, hidratar com dados
+ * estatiocos e extrair os dados de interesse final de pagamento
+ * da zoop.
+ * 
+ * @method Zoop\Payment\Ticket generateTicket(array $ticket, string $userId)
+ * 
+ * @package Zoop\Payment
+ * @author italodeveloper <italoaraujo788@gmial.com>
+ * @version 1.0.0
+ */
+class Ticket extends Zoop
 {
-    /** @var $configuration  */
-    protected $configuration;
-    protected $transactions;
-    public function __construct(array $configuration)
+    public function __construct(array $configurations)
     {
-        $this->transactions = new Transactions($configuration);
-        $this->configuration = $configuration;
+        parent::__construct($configurations);
     }
 
     /**
@@ -39,12 +47,12 @@ class Ticket
                 'payment_limit_date' => $ticket['payment_limit_date'],
             ],
             'capture' => false,
-            'on_behalf_of' => $this->configuration['auth']['on_behalf_of'],
+            'on_behalf_of' => $this->configurations['auth']['on_behalf_of'],
             'source' => [
                 'usage' => 'single_use',
                 'type' => 'customer',
                 'capture' => false,
-                'on_behalf_of' => $this->configuration['auth']['on_behalf_of']
+                'on_behalf_of' => $this->configurations['auth']['on_behalf_of']
             ],
             'customer' => $userId,
         ];
@@ -63,8 +71,8 @@ class Ticket
     private function processTicket(array $ticket, string $userId)
     {
         $ticket = $this->prepareTicket($ticket, $userId);
-        $request = $this->configuration['guzzle']->request(
-            'POST', '/v1/marketplaces/'. $this->configuration['marketplace']. '/transactions', 
+        $request = $this->configurations['guzzle']->request(
+            'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions', 
             ['json' => $ticket]
         );
         $response = \json_decode($request->getBody()->getContents(), true);
@@ -92,32 +100,22 @@ class Ticket
     public function generateTicket(array $ticket, string $userId)
     {
         $generatedTicket = $this->processTicket($ticket, $userId);
-        $request = $this->configuration['guzzle']->request(
-            'GET', '/v1/marketplaces/'. $this->configuration['marketplace']. '/boletos/' . $generatedTicket['ticketId']
+        $request = $this->configurations['guzzle']->request(
+            'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/boletos/' . $generatedTicket['ticketId']
         );
         $response = \json_decode($request->getBody()->getContents(), true);
         if($response && is_array($response)){
             return [
-                'id' => $generatedTicket['id'],
-                'ticketId' => $generatedTicket['ticketId'],
-                'url' => $response['url'],
-                'barcode' => $response['barcode'],
-                'status' => $generatedTicket['status']
+                'payment' => [
+                    'id' => $generatedTicket['id'],
+                    'ticketId' => $generatedTicket['ticketId'],
+                    'url' => $response['url'],
+                    'barcode' => $response['barcode'],
+                    'status' => $generatedTicket['status']
+                ],
+                'userId' => $userId
             ];
         }
         return false;
-    }
-
-    /**  
-     * getTicket function
-     *
-     * Pega os detaçhes de uma 
-     * 
-     * @param string $transaction
-     * @return array|bool
-     */
-    public function getTicket(string $transaction)
-    {
-        return $this->transactions->getTransaction($transaction);
     }
 }
