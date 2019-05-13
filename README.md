@@ -1,6 +1,6 @@
 ![alt text](https://zoop.co/dist/imgs/zoop-logo3.png "Logo Title Text 1")
 
-# Zoop SDK - PHP
+# Zoop SDK - PHP :elephant:
 SDK Não oficial Zoop PHP, para realizar integração com o gateway de pagamento.
 
 Observação a contribuidores: só será mergido bundles com o mesmo padrão de projeto, não repita nomes de funções dentro dos novos bundles para não confitar com os atuais.
