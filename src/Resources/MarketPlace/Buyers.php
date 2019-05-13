@@ -32,15 +32,19 @@ class Buyers extends Zoop
      */
     public function createBuyer(array $user)
     {
-        $request = $this->configurations['guzzle']->request(
-            'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers', 
-            ['json' => $user]
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return $response;
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers', 
+                ['json' => $user]
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 
     /**
@@ -53,14 +57,18 @@ class Buyers extends Zoop
      */
     public function getAllBuyers()
     {
-        $request = $this->configurations['guzzle']->request(
-            'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers'
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return $response;
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers'
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 
     /**
@@ -74,13 +82,17 @@ class Buyers extends Zoop
      */
     public function getBuyer(string $userId)
     {
-        $request = $this->configurations['guzzle']->request(
-            'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return $response;
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 } 

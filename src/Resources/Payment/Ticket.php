@@ -70,20 +70,24 @@ class Ticket extends Zoop
      */
     private function processTicket(array $ticket, string $userId)
     {
-        $ticket = $this->prepareTicket($ticket, $userId);
-        $request = $this->configurations['guzzle']->request(
-            'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions', 
-            ['json' => $ticket]
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return [
-                'id' => $response['id'],
-                'ticketId' => $response['payment_method']['id'],
-                'status' => $response['status'],
-            ];
+        try {
+            $ticket = $this->prepareTicket($ticket, $userId);
+            $request = $this->configurations['guzzle']->request(
+                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions', 
+                ['json' => $ticket]
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return [
+                    'id' => $response['id'],
+                    'ticketId' => $response['payment_method']['id'],
+                    'status' => $response['status'],
+                ];
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 
     /**
@@ -99,23 +103,27 @@ class Ticket extends Zoop
      */
     public function generateTicket(array $ticket, string $userId)
     {
-        $generatedTicket = $this->processTicket($ticket, $userId);
-        $request = $this->configurations['guzzle']->request(
-            'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/boletos/' . $generatedTicket['ticketId']
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return [
-                'payment' => [
-                    'id' => $generatedTicket['id'],
-                    'ticketId' => $generatedTicket['ticketId'],
-                    'url' => $response['url'],
-                    'barcode' => $response['barcode'],
-                    'status' => $generatedTicket['status']
-                ],
-                'userId' => $userId
-            ];
+        try {
+            $generatedTicket = $this->processTicket($ticket, $userId);
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/boletos/' . $generatedTicket['ticketId']
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return [
+                    'payment' => [
+                        'id' => $generatedTicket['id'],
+                        'ticketId' => $generatedTicket['ticketId'],
+                        'url' => $response['url'],
+                        'barcode' => $response['barcode'],
+                        'status' => $generatedTicket['status']
+                    ],
+                    'userId' => $userId
+                ];
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 }

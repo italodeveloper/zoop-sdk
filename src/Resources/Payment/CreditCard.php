@@ -68,15 +68,19 @@ class CreditCard extends Zoop
      */
     public function payCreditCard(array $card)
     {
-        $payment = $this->prepareCreditCard($card);
-        $request = $this->configurations['guzzle']->request(
-            'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions',
-            ['json' => $payment]
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return $response;
+        try {
+            $payment = $this->prepareCreditCard($card);
+            $request = $this->configurations['guzzle']->request(
+                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions',
+                ['json' => $payment]
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 }

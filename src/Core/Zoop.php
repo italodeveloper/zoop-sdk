@@ -134,4 +134,9 @@ abstract class Zoop
         }
         return $this->hookBundle($bundle, $name, $arguments);
     }
+
+    public function ResponseException(\Exception $e)
+    {
+        throw new \Exception(\json_encode(\json_decode($e->getResponse()->getBody()->getContents(), true)), 1);
+    }
 }

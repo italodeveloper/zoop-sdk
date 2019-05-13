@@ -33,14 +33,18 @@ class Transactions extends Zoop
      */
     public function getAllTransactions()
     {
-        $request = $this->configurations['guzzle']->request(
-            'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/' . $this->configurations['auth']['on_behalf_of'] .'/transactions',
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return $response;
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/' . $this->configurations['auth']['on_behalf_of'] .'/transactions',
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 
     /**
@@ -54,13 +58,17 @@ class Transactions extends Zoop
      */
     public function getTransaction(string $transaction)
     {
-        $request = $this->configurations['guzzle']->request(
-            'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions/'. $transaction,
-        );
-        $response = \json_decode($request->getBody()->getContents(), true);
-        if($response && is_array($response)){
-            return $response;
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions/'. $transaction,
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
         }
-        return false;
     }
 }
