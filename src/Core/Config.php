@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\Core;
 use GuzzleHttp\Client;
-
+use Zoop\Core\ZendAdapter;
 /**
  * Config class
  * 
@@ -41,7 +41,7 @@ class Config
                 'status' => null,
                 'payment_type' => null,
             ],
-            'guzzle' => new Client([
+            'guzzle' => new ZendAdapter([
                 'base_uri' => 'https://api.zoop.ws',
                 'timeout' => 10,
                 'headers' => [

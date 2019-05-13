@@ -79,8 +79,8 @@ class CreditCard extends Zoop
                 return $response;
             }
             return false;
-        } catch (\Exception $e){            
+       } catch (\Exception $e){        
             return $this->ResponseException($e);
-        }
+       }
     }
 }
