@@ -1,6 +1,13 @@
 {
     "name": "italodeveloper/zoop-sdk",
     "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "italodeveloper",
+        "zoop",
+        "payment",
+        "gateway "
+    ],
     "authors": [
         {
             "name": "Ítalo Araújo",
@@ -11,6 +18,8 @@
         "optimize-autoloader": true
     },
     "require": {
+        "php": ">=5.3.23",
+        "ext-curl": "*",
         "guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
