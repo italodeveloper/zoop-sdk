@@ -21,11 +21,9 @@
         "php": ">=5.3.23",
         "ext-curl": "*", 
         "guzzlehttp/guzzle": "^6.3",
+        "zendframework/zend-http": "~2.5",
         "psr/log": "^1.1"
 
-    },
-    "suggest": {
-        "zendframework/zend-http": "~2.5"
     },
     "autoload": {
         "psr-4": {
