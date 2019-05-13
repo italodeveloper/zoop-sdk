@@ -20,6 +20,10 @@ namespace Zoop;
  * @method Zoop\Payment\CreditCard payCreditCard(array $card)
  * @method Zoop\Payment\Ticket generateTicket(array $ticket, string $userId)
  * 
+ * @method Zoop\WebHook\WebHook getAllWebHooks()
+ * @method Zoop\WebHook\WebHook createWebHook(string $url, string $description)
+ * @method Zoop\WebHook\WebHook deleteWebHook(string $webhookId)
+ * 
  * @author italodeveloper <italoaraujo788@gmail.com>
  * @package ZoopClient
  * @version 1.0.0
