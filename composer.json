@@ -18,7 +18,7 @@
         "optimize-autoloader": true
     },
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.5",
         "ext-curl": "*", 
         "guzzlehttp/guzzle": "^6.3",
         "zendframework/zend-http": "~2.5",
