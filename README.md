@@ -1,4 +1,4 @@
-![alt text](https://zoop.co/dist/imgs/zoop-logo3.png "Logo Title Text 1")
+![alt text](https://meep.cloud/wp-content/uploads/2017/09/zoop-logo3-2.png "Logo Zoop")
 
 # Zoop SDK - PHP :elephant:
 SDK Não oficial Zoop PHP, para realizar integração com o gateway de pagamento.
