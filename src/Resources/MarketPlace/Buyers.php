@@ -8,9 +8,9 @@ use Zoop\Zoop;
  * Essa classe é resposavel por lidar com os usuarios
  * dentro do marketplace ao nivel do marketplace zoop.
  * 
- * @method Zoop\MarketPlace createBuyer(array $user)
- * @method Zoop\MarketPlace getBuyer(string $userId)
- * @method Zoop\MarketPlace getAllBuyers()
+ * @method Zoop\MarketPlace\Buyers createBuyer(array $user)
+ * @method Zoop\MarketPlace\Buyers getBuyer(string $userId)
+ * @method Zoop\MarketPlace\Buyers getAllBuyers()
  * 
  * @package Zoop\MarketPlace
  * @author italodeveloper <italoaraujo788@gmail.com>
