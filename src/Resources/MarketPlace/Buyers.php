@@ -8,9 +8,9 @@ use Zoop\Zoop;
  * Essa classe é resposavel por lidar com os usuarios
  * dentro do marketplace ao nivel do marketplace zoop.
  * 
- * @method Zoop\MarketPlace\Buyers createBuyer(array $user)
- * @method Zoop\MarketPlace\Buyers getBuyer(string $userId)
- * @method Zoop\MarketPlace\Buyers getAllBuyers()
+ * @method \Zoop\MarketPlace\Buyers createBuyer(array $user)
+ * @method \Zoop\MarketPlace\Buyers getBuyer(string $userId)
+ * @method \Zoop\MarketPlace\Buyers getAllBuyers()
  * 
  * @package Zoop\MarketPlace
  * @author italodeveloper <italoaraujo788@gmail.com>
@@ -25,7 +25,7 @@ class Buyers extends Zoop
 
     /**
      * createBuyer function
-     *
+     * 
      * Cria o usuario dentro do markeplace ('não é associado ao vendedor')
      * @param array $user
      * @return bool|array
