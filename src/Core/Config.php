@@ -1,8 +1,8 @@
 <?php
 namespace Zoop\Core;
+
 use GuzzleHttp\Client;
 use Zoop\Core\ZendAdapter;
-
 /**
  * Config class
  * 
@@ -60,7 +60,7 @@ class Config
         if(\is_null($is_zend)){
             $configurations['guzzle'] = new Client($client);
         } else {
-            $configurations['guzzle'] =new ZendAdapter($client);
+            $configurations['guzzle'] = new ZendAdapter($client);
         }
         return $configurations;
     }

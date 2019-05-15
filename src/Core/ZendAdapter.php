@@ -1,5 +1,6 @@
 <?php
 namespace Zoop\Core;
+
 /**
  * ZendAdapter class
  * 

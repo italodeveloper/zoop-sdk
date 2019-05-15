@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\Marketplace;
-use Zoop\Zoop;
 
+use Zoop\Zoop;
 /**
  * Transactions class
  * 
@@ -35,7 +35,7 @@ class Transactions extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/' . $this->configurations['auth']['on_behalf_of'] .'/transactions',
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/' . $this->configurations['auth']['on_behalf_of'] .'/transactions'
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -60,7 +60,7 @@ class Transactions extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions/'. $transaction,
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions/'. $transaction
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){

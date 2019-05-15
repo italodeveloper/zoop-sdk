@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\MarketPlace;
-use Zoop\Zoop;
 
+use Zoop\Zoop;
 /**
  * Class Buyers
  * 

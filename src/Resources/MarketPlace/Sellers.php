@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\MarketPlace;
-use Zoop\Zoop;
 
+use Zoop\Zoop;
 /**
  * Class Sellers
  * 
@@ -23,7 +23,7 @@ class Sellers extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/'. $sallerId,
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/'. $sallerId
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -39,7 +39,7 @@ class Sellers extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers',
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers'
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
