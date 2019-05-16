@@ -56,7 +56,7 @@ class Transactions extends Zoop
      * @param string $transaction
      * @return array|bool
      */
-    public function getTransaction(string $transaction)
+    public function getTransaction($transaction)
     {
         try {
             $request = $this->configurations['guzzle']->request(

@@ -31,7 +31,7 @@ class ZendAdapter
      * @param [type] $body
      * @return $this
      */
-    public function request(string $method, string $url, $body = null)
+    public function request($method, $url, $body = null)
     {
         if(is_null($body)){
             $body = [];

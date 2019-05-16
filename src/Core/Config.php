@@ -19,7 +19,7 @@ use Zoop\Core\ZendAdapter;
  */
 class Config
 {
-    public static function configure(string $token, string $marketplace, string $vendedor, $is_zend = null)
+    public static function configure($token, $marketplace, $vendedor, $is_zend = null)
     {
         $configurations = [
             'marketplace' => $marketplace,

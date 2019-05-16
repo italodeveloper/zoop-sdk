@@ -33,7 +33,7 @@ class Ticket extends Zoop
      * @param string $userId
      * @return array
      */
-    private function prepareTicket(array $ticket, string $userId)
+    private function prepareTicket(array $ticket, $userId)
     {
         return [
             'amount' => ($ticket['amount'] * 100),
@@ -68,7 +68,7 @@ class Ticket extends Zoop
      * @param string $userId
      * @return array|bool
      */
-    private function processTicket(array $ticket, string $userId)
+    private function processTicket(array $ticket, $userId)
     {
         try {
             $ticket = $this->prepareTicket($ticket, $userId);
@@ -101,7 +101,7 @@ class Ticket extends Zoop
      * @param string $userId
      * @return array|bool
      */
-    public function generateTicket(array $ticket, string $userId)
+    public function generateTicket(array $ticket, $userId)
     {
         try {
             $generatedTicket = $this->processTicket($ticket, $userId);

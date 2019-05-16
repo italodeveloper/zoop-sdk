@@ -20,7 +20,7 @@ class WebHook extends Zoop
      * @return array|bool
      * @throws \Exception Erro basico de requisição
      */
-    public function createWebHook(string $url, string $description)
+    public function createWebHook($url, $description)
     {
         try {
             $request = $this->configurations['guzzle']->request(
@@ -75,7 +75,7 @@ class WebHook extends Zoop
      * @return array|bool
      * @throws \Exception Erro basico de requisição
      */
-    public function deleteWebHook(string $webhookId)
+    public function deleteWebHook($webhookId)
     {
         try {
             $request = $this->configurations['guzzle']->request(
