@@ -19,7 +19,7 @@ class Sellers extends Zoop
         parent::__construct($configurations);
     }
 
-    public function getSeller(string $sallerId)
+    public function getSeller($sallerId)
     {
         try {
             $request = $this->configurations['guzzle']->request(

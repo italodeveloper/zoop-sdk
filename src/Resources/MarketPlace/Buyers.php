@@ -80,7 +80,7 @@ class Buyers extends Zoop
      * @param string $userId
      * @return bool|array
      */
-    public function getBuyer(string $userId)
+    public function getBuyer($userId)
     {
         try {
             $request = $this->configurations['guzzle']->request(
