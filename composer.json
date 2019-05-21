@@ -15,16 +15,18 @@
         }
     ],
     "config": {
-        "cache-files-ttl": 0,
         "optimize-autoloader": true
     },
     "require": {
         "php": ">=5.5",
-        "ext-curl": "*", 
-        "zendframework/zend-http": "~2.5",
         "psr/log": "^1.1",
+        "ext-curl": "*", 
+        "guzzlehttp/guzzle": "^6.3",
         "italodeveloper/guzzle-zend": "dev-master"
 
+    },
+    "require-dev": {
+        "zendframework/zend-http": "~2.5"
     },
     "autoload": {
         "psr-4": {
