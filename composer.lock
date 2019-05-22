@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdb7ae15a19f63242144ac47c5cb09fd",
+    "content-hash": "9b8f9f6709166ea8241e431f594c6d60",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -191,7 +191,7 @@
         },
         {
             "name": "italodeveloper/guzzle-zend",
-            "version": "dev-master",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/italodeveloper/guzzle-zend.git",
@@ -367,9 +367,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "italodeveloper/guzzle-zend": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

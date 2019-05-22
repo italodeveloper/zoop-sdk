@@ -24,7 +24,7 @@
         "ext-json": "*",
         "psr/log": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
-        "italodeveloper/guzzle-zend": "dev-master"
+        "italodeveloper/guzzle-zend": "^1.2"
     },
     "autoload": {
         "psr-4": {
