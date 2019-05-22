@@ -53,10 +53,36 @@ class CreditCard extends Zoop
                 ),
             ),
         );
+        if(isset($card['installment_plan']) && is_array($card['installment_plan']) && $this->validateInstallment($card['installment_plan'])){
+            $payment['installment_plan'] = $card['installment_plan'];
+        }
+
         if(!is_null($referenceId)){
             $payment['reference_id'] = $referenceId;
         }
         return $payment;
+    }
+
+    /**
+     * validateInstallment function
+     *
+     * Valida o parcelamento por cartão de credito.
+     * 
+     * @param array $installment
+     * @return bool
+     */
+    private function validateInstallment(array $installment)
+    {
+        if(!isset($installment['mode'])
+        || !isset($installment['number_installments'])
+        || empty($installment['mode'])
+        || empty($installment['number_installments'])){
+            return false;
+        }
+        if($installment['mode'] == 'with_interest' || $installment['mode'] == 'interest_free'){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -74,6 +100,9 @@ class CreditCard extends Zoop
      */
     public function payCreditCard(array $card, $referenceId = null)
     {
+        /**
+         * Adiciona o pacerlamento ao cartão de credito mantendo a integridade com o funcionamento atual.
+         */
         try {
             $payment = $this->prepareCreditCard($card, $referenceId);
             $request = $this->configurations['guzzle']->request(
