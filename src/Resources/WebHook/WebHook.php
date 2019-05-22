@@ -24,9 +24,9 @@ class WebHook extends Zoop
      * recebimento do evento.
      *
      * @param array $payload
-     * @return bool
+     * @return bool|array
      */
-    private function validatePayload(array $payload)
+    private function validatePayload(string $payload)
     {
         $payload = \json_decode($payload, TRUE);
         if(isset($payload)
@@ -39,7 +39,7 @@ class WebHook extends Zoop
                 && isset($payload['payload'])
                 && isset($payload['payload']['object']['status'])
             ) {
-                return true;
+                return $payload;
             }
             return false;
         }
@@ -89,7 +89,8 @@ class WebHook extends Zoop
     public function webHookListen()
     {
         $payload = \file_get_contents('php://input');
-        if($this->validatePayload($payload)){
+        $payload = $this->validatePayload($payload);
+        if($payload && is_array($payload)){
             $payload = $this->resumePayload($payload);
             return $payload;
         }
