@@ -26,6 +26,9 @@
         "guzzlehttp/guzzle": ">=6.2",
         "italodeveloper/guzzle-zend": "^1.2"
     },
+    "require-dev": {
+        "zendframework/zend-http": ">=2.5"
+    },
     "autoload": {
         "psr-4": {
             "Zoop\\": "src/"
