@@ -1,11 +1,100 @@
 <?php
 namespace Zoop\WebHook;
+
 use Zoop\Zoop;
+
 class WebHook extends Zoop 
 {
+    /**
+     * WebHook constructor.
+     *
+     * @param array $configurations
+     */
     public function __construct(array $configurations)
     {
         parent::__construct($configurations);
+        $this->configurations = $configurations;
+    }
+
+    /**
+     * validatePayload function
+     *
+     * Valida dados basicos da resposta recebida da zoop
+     * garantindo que a mesma é uma resposta valida para
+     * recebimento do evento.
+     *
+     * @param array $payload
+     * @return bool
+     */
+    private function validatePayload(array $payload)
+    {
+        $payload = \json_decode($payload, TRUE);
+        if(isset($payload)
+            && !empty($payload)
+            && \is_array($payload)
+        ) {
+            if (isset($payload['id'])
+                && isset($payload['type'])
+                && isset($payload['resource'])
+                && isset($payload['payload'])
+                && isset($payload['payload']['object']['status'])
+            ) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * resumePayload funtion
+     *
+     * Recebe os dados do payload e preenche somente os campos
+     * realmente necessarios para se tomar ações dentro da aplicação.
+     *
+     * @param array $payload
+     * @return array
+     */
+    private function resumePayload(array $payload)
+    {
+        $payloadReturn = array(
+            'event' => array(
+                'id' => $payload['id'],
+                'type' => $payload['type']
+            ),
+            'payment' => array(
+                'id' => $payload['payload']['object']['id'],
+                'type' => $payload['payload']['object']['payment_type'],
+                'amount' => $payload['payload']['object']['amount'],
+            )
+        );
+        if(isset($payload['payload']['object']['reference_id'])
+            && !empty($payload['payload']['object']['reference_id'])){
+                $payloadReturn['referenceId'] = $payload['payload']['object']['reference_id'];
+        }
+        return $payloadReturn;
+    }
+
+    /**
+     * webHookListen function
+     *
+     * Escuta as possiveis chamadas json, valida as mesma
+     * (valida como um evento valido) e resume o evento,
+     * para que você possa tomar a decisão correta baseado
+     * no resultado do mesmo, exemplo, pagamento aprovado
+     * ou paagemnto reprovado.
+     *
+     * @return array|bool|false|string
+     */
+    public function webHookListen()
+    {
+        $payload = \file_get_contents('php://input');
+        if($this->validatePayload($payload)){
+            $payload = $this->resumePayload($payload);
+            return $payload;
+        }
+        //O Payload não é valido, exibe resposta padrão de exibição
+        return false;
     }
 
     /**

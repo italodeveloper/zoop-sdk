@@ -9,10 +9,8 @@ use Zoop\Zoop;
  * estatiocos e extrair os dados de interesse final de pagamento
  * da zoop.
  * 
- * @method Zoop\Payment\Ticket generateTicket(array $ticket, string $userId)
- * 
  * @package Zoop\Payment
- * @author italodeveloper <italoaraujo788@gmial.com>
+ * @author italodeveloper <italoaraujo788@gmail.com>
  * @version 1.0.0
  */
 class Ticket extends Zoop
@@ -63,13 +61,19 @@ class Ticket extends Zoop
      *
      * Processa o boleto na Zoop, e retorna somente os dados
      * necessarios para pegar o boleto e mostrar dados de valor.
-     * 
+     *
      * @param array $ticket
      * @param string $userId
+     * @param null|string $referenceId
+     *
      * @return array|bool
+     * @throws \Exception
      */
-    private function processTicket(array $ticket, $userId)
+    private function processTicket(array $ticket, $userId, $referenceId = null)
     {
+        if(!is_null($referenceId)){
+            $ticket['reference_id'] = $referenceId;
+        }
         try {
             $ticket = $this->prepareTicket($ticket, $userId);
             $request = $this->configurations['guzzle']->request(
@@ -96,30 +100,33 @@ class Ticket extends Zoop
      * Gera o boleto e retorna os dados principais
      * do mesmo, como codigo de barras, url para download
      * no s3 e mais.
-     * 
+     *
      * @param array $ticket
      * @param string $userId
+     * @param null|string $referenceId
+     *
      * @return array|bool
+     * @throws \Exception
      */
-    public function generateTicket(array $ticket, $userId)
+    public function generateTicket(array $ticket, $userId, $referenceId = null)
     {
         try {
-            $generatedTicket = $this->processTicket($ticket, $userId);
+            $generatedTicket = $this->processTicket($ticket, $userId, $referenceId);
             $request = $this->configurations['guzzle']->request(
                 'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/boletos/' . $generatedTicket['ticketId']
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
-                return [
-                    'payment' => [
+                return array(
+                    'payment' => array(
                         'id' => $generatedTicket['id'],
                         'ticketId' => $generatedTicket['ticketId'],
                         'url' => $response['url'],
                         'barcode' => $response['barcode'],
                         'status' => $generatedTicket['status']
-                    ],
+                    ),
                     'userId' => $userId
-                ];
+                );
             }
             return false;
         } catch (\Exception $e){            

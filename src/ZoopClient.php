@@ -1,5 +1,6 @@
 <?php
 namespace Zoop;
+
 use Zoop\Zoop;
 /**
  * ZoopClient class
@@ -21,8 +22,8 @@ use Zoop\Zoop;
  * @method \Zoop\MarketPlace\Sellers getAllSellers()
  * @method \Zoop\MarketPlace\Sellers getSeller(string $sallerId)
  * 
- * @method \Zoop\Payment\CreditCard payCreditCard(array $card)
- * @method \Zoop\Payment\Ticket generateTicket(array $ticket, string $userId)
+ * @method \Zoop\Payment\CreditCard payCreditCard(array $card, string $referenceId = null)
+ * @method \Zoop\Payment\Ticket generateTicket(array $ticket, string $userId, string $referenceId = null)
  * 
  * @method \Zoop\WebHook\WebHook getAllWebHooks()
  * @method \Zoop\WebHook\WebHook createWebHook(string $url, string $description)

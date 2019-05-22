@@ -1,5 +1,6 @@
 {
     "name": "italodeveloper/zoop-sdk",
+    "description": "SDK de pagamentos Zoop",
     "license": "MIT",
     "type": "library",
     "keywords": [
@@ -20,10 +21,9 @@
     "require": {
         "php": ">=5.5",
         "psr/log": "^1.1",
-        "ext-curl": "*", 
-        "guzzlehttp/guzzle": "^6.3",
-        "italodeveloper/guzzle-zend": "dev-master"
-
+        "ext-curl": "*",
+        "italodeveloper/guzzle-zend": "dev-master",
+        "ext-json": "*"
     },
     "require-dev": {
         "zendframework/zend-http": "~2.5"
