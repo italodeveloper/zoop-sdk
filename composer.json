@@ -23,7 +23,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "psr/log": "^1.1",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": ">=6.2",
         "italodeveloper/guzzle-zend": "^1.2"
     },
     "autoload": {

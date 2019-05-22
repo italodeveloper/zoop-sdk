@@ -19,6 +19,15 @@ class Sellers extends Zoop
         parent::__construct($configurations);
     }
 
+    /**
+     * getSeller function
+     *
+     * Pega os dados de um vendedor utilizando seu id
+     * como paramtro.
+     * 
+     * @param string|int $sallerId
+     * @return void
+     */
     public function getSeller($sallerId)
     {
         try {
@@ -35,6 +44,14 @@ class Sellers extends Zoop
         }
     }
 
+    /**
+     * getAllSellers function
+     *
+     * Lista todos os vendedores do marketplace
+     * 
+     * @throws \Exception
+     * @return array|void
+     */
     public function getAllSellers()
     {
         try {
