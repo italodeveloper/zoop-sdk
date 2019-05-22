@@ -28,6 +28,7 @@ use Zoop\Zoop;
  * @method \Zoop\WebHook\WebHook getAllWebHooks()
  * @method \Zoop\WebHook\WebHook createWebHook(string $url, string $description)
  * @method \Zoop\WebHook\WebHook deleteWebHook(string $webhookId)
+ * @method \Zoop\WebHook\WebHook webHookListen()
  * 
  * 
  * @author italodeveloper <italoaraujo788@gmail.com>
