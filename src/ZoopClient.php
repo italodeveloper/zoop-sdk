@@ -15,6 +15,7 @@ use Zoop\Zoop;
  * @method \Zoop\MarketPlace\Buyers createBuyer(array $user)
  * @method \Zoop\MarketPlace\Buyers getAllBuyers()
  * @method \Zoop\MarketPlace\Buyers getBuyer(string $id)
+ * @method \Zoop\MarketPlace\Buyers deleteBuyer(string $id)
  * 
  * @method \Zoop\MarketPlace\Transactions getAllTransactions()
  * @method \Zoop\MarketPlace\Transactions getTransaction(string $transaction)
