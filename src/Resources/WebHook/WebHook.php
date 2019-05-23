@@ -2,7 +2,18 @@
 namespace Zoop\WebHook;
 
 use Zoop\Zoop;
-
+/**
+ * WebHook class
+ *
+ * Essa classe é responsavel por gerenciar
+ * os webhooks (callbacks da Zoop), tratando
+ * e retornando da melhor forma os dados pegos
+ * pelo escutador.
+ *
+ * @package Zoop\WebHook
+ * @author italodeveloper <italoaraujo788@gmail.com>
+ * @version 3.0.2
+ */
 class WebHook extends Zoop 
 {
     /**
@@ -23,7 +34,7 @@ class WebHook extends Zoop
      * garantindo que a mesma é uma resposta valida para
      * recebimento do evento.
      *
-     * @param array $payload
+     * @param string $payload
      * @return bool|array
      */
     private function validatePayload(string $payload)

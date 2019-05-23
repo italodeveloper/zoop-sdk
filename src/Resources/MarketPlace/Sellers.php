@@ -24,9 +24,11 @@ class Sellers extends Zoop
      *
      * Pega os dados de um vendedor utilizando seu id
      * como paramtro.
-     * 
+     *
      * @param string|int $sallerId
+     *
      * @return void
+     * @throws \Exception
      */
     public function getSeller($sallerId)
     {

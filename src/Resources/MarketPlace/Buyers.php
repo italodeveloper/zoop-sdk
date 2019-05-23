@@ -8,10 +8,6 @@ use Zoop\Zoop;
  * Essa classe é resposavel por lidar com os usuarios
  * dentro do marketplace ao nivel do marketplace zoop.
  * 
- * @method \Zoop\MarketPlace\Buyers createBuyer(array $user)
- * @method \Zoop\MarketPlace\Buyers getBuyer(string $userId)
- * @method \Zoop\MarketPlace\Buyers getAllBuyers()
- * 
  * @package Zoop\MarketPlace
  * @author italodeveloper <italoaraujo788@gmail.com>
  * @version 1.0.0
@@ -25,10 +21,13 @@ class Buyers extends Zoop
 
     /**
      * createBuyer function
-     * 
+     *
      * Cria o usuario dentro do markeplace ('não é associado ao vendedor')
+     *
      * @param array $user
+     *
      * @return bool|array
+     * @throws \Exception
      */
     public function createBuyer(array $user)
     {
@@ -54,6 +53,7 @@ class Buyers extends Zoop
      * ('não realiza associação com o vendedor')
      *
      * @return bool|array
+     * @throws \Exception
      */
     public function getAllBuyers()
     {
@@ -78,7 +78,9 @@ class Buyers extends Zoop
      * ao id passado como parametro.
      *
      * @param string $userId
+     *
      * @return bool|array
+     * @throws \Exception
      */
     public function getBuyer($userId)
     {
@@ -92,6 +94,33 @@ class Buyers extends Zoop
             }
             return false;
         } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * function deleteBuyer
+     *
+     * Delta um usuario do marketplace utilizando como parametro
+     * seu id.
+     *
+     * @param $userId
+     *
+     * @return bool|mixed|void
+     * @throws \Exception
+     */
+    public function deleteBuyer($userId)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'DELETE', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){
             return $this->ResponseException($e);
         }
     }

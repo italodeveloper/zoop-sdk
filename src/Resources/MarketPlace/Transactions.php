@@ -9,9 +9,6 @@ use Zoop\Zoop;
  * dentro do marketplace e pode ser utilizada para consultar por exemplos
  * boletos (Tickets).
  * 
- * @method Zoop\Marketplace\Transactions getAllTransactions()
- * @method Zoop\Marketplace\Transactions getTransaction(string $transaction)
- * 
  * @package Zoop\Marketplace
  * @author italodeveloper <italo.araujo@gmail.com>
  * @version 1.0.0
@@ -30,6 +27,7 @@ class Transactions extends Zoop
      * do marketplace
      *
      * @return bool|array
+     * @throws \Exception
      */
     public function getAllTransactions()
     {
@@ -52,9 +50,11 @@ class Transactions extends Zoop
      *
      * Pega os detalhes de uma transação em especifico
      * utilizando como parametro o id da mesma.
-     * 
+     *
      * @param string $transaction
+     *
      * @return array|bool
+     * @throws \Exception
      */
     public function getTransaction($transaction)
     {
