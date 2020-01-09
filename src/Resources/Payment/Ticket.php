@@ -36,6 +36,7 @@ class Ticket extends Zoop
         return [
             'amount' => ($ticket['amount'] * 100),
             'currency' => 'BRL',
+	    'logo' => array_key_exists('logo', $ticket) ? $ticket['logo'] : null,
             'description' => $ticket['description'],
             'payment_type' => 'boleto',
             'payment_method' => [
